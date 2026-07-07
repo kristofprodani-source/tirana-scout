@@ -6,12 +6,22 @@ listings = [
     {"price": 68000, "sqm": 60, "bedrooms": 1},
 ]
 
-def print_listings():
-    for listing in listings:
+def print_listings(properties):
+    for listing in properties:
         print(
             f"Price: €{listing['price']}, "
             f"Size: {listing['sqm']} sqm, "
             f"Bedrooms: {listing['bedrooms']}"
         )
 
-print_listings()
+def filter_by_price(max_price):
+    return [listing for listing in listings if listing["price"] <= max_price]
+
+print("All listings:")
+print_listings(listings)
+
+print("\nListings under €100000:")
+print_listings(filter_by_price(100000))
+
+print("\nListings under €70000:")
+print_listings(filter_by_price(70000))

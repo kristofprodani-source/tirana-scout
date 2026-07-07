@@ -17,6 +17,22 @@ def print_listings(properties):
 def filter_by_price(max_price):
     return [listing for listing in listings if listing["price"] <= max_price]
 
+def deal_score():
+    prices_per_sqm = [listing["price"] / listing["sqm"] for listing in listings]
+    average = sum(prices_per_sqm) / len(prices_per_sqm)
+
+    print(f"\nAverage price per sqm: €{average:.2f}\n")
+
+    for listing in listings:
+        price_per_sqm = listing["price"] / listing["sqm"]
+        label = "Good Deal" if price_per_sqm <= average else "Bad Deal"
+
+        print(
+            f"Price: €{listing['price']}, "
+            f"Size: {listing['sqm']} sqm, "
+            f"Price/sqm: €{price_per_sqm:.2f} -> {label}"
+        )
+
 print("All listings:")
 print_listings(listings)
 
@@ -25,3 +41,5 @@ print_listings(filter_by_price(100000))
 
 print("\nListings under €70000:")
 print_listings(filter_by_price(70000))
+
+deal_score()
